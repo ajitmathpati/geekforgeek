@@ -42,13 +42,23 @@ int Missing(int *p, int size)
 }
 int Repeating(int *p, int size)
 {
+    int found = 0;
+    int *visited = (int *)calloc(size, sizeof(int));
     for (int i = 0; i < size; i++)
     {
+        if (visited[i] == 1)
+        {
+            continue;
+        }
         for (int j = i + 1; j < size; j++)
         {
             if (p[i] == p[j])
             {
-                return i;
+                found = 1;
+                visited[i] = 1;
+                visited[j] = 1;
+                return p[i];
+                break;
             }
         }
     }
@@ -63,7 +73,8 @@ int main()
     Take_input(p, size);
     int miss = Missing(p, size);
     printf("Missing Element IS :%d\n", miss);
-    Repeating(p, size);
+    int reap = Repeating(p, size);
+    printf("Reapiting Element IS :%d\n", reap);
     free(p);
     p = NULL;
 
