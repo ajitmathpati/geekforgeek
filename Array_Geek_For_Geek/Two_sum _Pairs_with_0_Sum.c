@@ -67,19 +67,38 @@ void SORTEDARRAY(int *ptr, int size)
 }
 void Two_sum_Pairs_with_0_Sum(int *ptr, int size)
 {
-    printf("the pairs of the array which sum to 0 are:\n");
-    for (int i = 0; i < size; i++)
+    int left = 0;
+    int right = size - 1;
+
+    printf("The unique pairs whose sum is 0 are:\n");
+
+    while (left < right)
     {
-        for (int j = i + 1; j < size; j++)
+        int sum = ptr[left] + ptr[right];
+        if (sum == 0)
         {
-            if (ptr[i] + ptr[j] == 0)
+            printf("[%d, %d]\n", ptr[left], ptr[right]);
+
+            // Skip duplicates
+            int valLeft = ptr[left];
+            int valRight = ptr[right];
+
+            while (left < right && ptr[left] == valLeft)
             {
-                if (ptr[i] > ptr[j])
-                {
-                    swap(&ptr[i], &ptr[j]);
-                }
-                printf("[%d %d]=0\n", ptr[i], ptr[j]);
+                left++;
             }
+            while (left < right && ptr[right] == valRight)
+            {
+                right--;
+            }
+        }
+        else if (sum < 0)
+        {
+            left++;
+        }
+        else
+        {
+            right--;
         }
     }
 }
